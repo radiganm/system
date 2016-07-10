@@ -1,0 +1,70 @@
+#!/bin/bash
+## system
+## Mac Radigan
+  d=${0%/*}; f=${0##*/}; b=${f%.*}; e=${f##*.}
+
+  S__SUCCESS=0
+  S__NO_SUCH_COMMAND=1
+
+  usage()
+  {
+    cat <<-EOT 
+		$f [chibi|s7] [args]
+EOT
+    exit 1
+  }
+
+  die()
+  {
+    code=$1; shift
+    msg=$1;  shift
+    echo "ERROR ${code}: ${msg}"
+    exit $code
+  }
+
+  if [[ "$#" == "0" ]]; then
+    usage
+  fi
+
+  run()
+  {
+    cmd=$1; shift
+    LDD=./chibi-scheme
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LDD}
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH 
+    export CHIBI_INCLUDE_PATH=./chibi-scheme/lib
+    export CHIBI_MODULE_PATH=./chibi-scheme/lib
+    $cmd $*
+  }
+
+  cmd=$1; shift
+  case $cmd in
+    s7)
+      run $d/s7 $*
+      ;;
+    chibi)
+      run $d/chibi $*
+      ;;
+    guile)
+      run $d/guile $*
+      ;;
+    python)
+      run $d/python $*
+      ;;
+    octave)
+      run $d/octave $*
+      ;;
+    root)
+      run $d/root $*
+      ;;
+    tcl)
+      run $d/tcl $*
+      ;;
+    *)
+      die $S__NO_SUCH_COMMAND "invalid command"
+      ;;
+  esac
+
+  exit $S__SUCCESS
+
+## *EOF*

@@ -1,0 +1,9 @@
+[submodule "chibi-scheme"]
+	path = chibi-scheme
+	url = https://github.com/radiganm/chibi-scheme.git
+[submodule "s7"]
+	path = s7
+	url = https://github.com/radiganm/s7.git
+[submodule "tecla"]
+	path = tecla
+	url = https://github.com/radiganm/tecla.git
