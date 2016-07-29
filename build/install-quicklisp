@@ -1,0 +1,14 @@
+#!/bin/bash
+## quicklisp installer
+## Mac Radigan
+  d=${0%/*}; f=${0##*/}; b=${f%.*}; e=${f##*.}
+
+  S__SUCCESS=0
+  S__NO_SUCH_COMMAND=1
+
+  (cd ./build; curl -O https://beta.quicklisp.org/quicklisp.lisp)
+  (cd ./build; sbcl --load quicklisp.lisp --eval "(quicklisp-quickstart:install)" --eval "(quit)")
+
+  exit $S__SUCCESS
+
+## *EOF*

@@ -11,8 +11,9 @@
     fprintf(stderr, "testing...\n");
     const char * const filename = "101";
     size_t size = 101;
-    status_t status = mmfile(filename, size);
-    return EXIT_SUCCESS;
+    void *data;
+    status_t status = mmfile(filename, &data, size);
+    return status;
   }
 
 /* *EOF* */

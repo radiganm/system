@@ -1,0 +1,67 @@
+#!/bin/bash
+## sbclc
+## Mac Radigan
+  d=${0%/*}; f=${0##*/}; b=${f%.*}; e=${f##*.}
+
+  S__SUCCESS=0
+  S__NO_SUCH_COMMAND=1
+
+  usage()
+  {
+    cat <<-EOT 
+		$f -c [source.cl] -o [target]
+EOT
+    exit 1
+  }
+
+  die()
+  {
+    code=$1; shift
+    msg=$1;  shift
+    echo "ERROR ${code}: ${msg}"
+    exit $code
+  }
+
+  if [[ "$#" == "0" ]]; then
+    usage
+  fi
+
+  while getopts ":c:o:" opt; do
+    case $opt in
+      c)
+        src=$OPTARG
+        ;;
+      o)
+        tgt=$OPTARG
+        ;;
+      \?)
+        echo "Invalid option: -$OPTARG" >&2
+        ;;
+    esac
+  done
+
+# p_swank=`readlink -f ./submodules/system/swank-client`
+# p_bordeaux=`readlink -f ./submodules/system/bordeaux-threads`
+# p_alexandria=`readlink -f ./submodules/system/alexandria`
+# p_base=`readlink -f ./submodules/system/base`
+
+  sbcl --no-inform --no-userinit <<-EOT 
+  (require 'asdf)
+; (setf asdf:*central-registry*
+;   (list* '*default-pathname-defaults*
+;    #p"${p_swank}/"
+;    #p"${p_bordeaux}/"
+;    #p"${p_alexandria}/"
+;    #p"${p_base}/"
+;    asdf:*central-registry*))
+; (probe-file "swank-client.asd")
+; (probe-file "bordeaux-threads.asd")
+; (probe-file "alexandria.asd")
+; (probe-file "base.asd")
+  (load "${src}")
+  (sb-ext:save-lisp-and-die "${tgt}" :toplevel #'main :executable t)
+EOT
+
+  exit $S__SUCCESS
+
+## *EOF*
