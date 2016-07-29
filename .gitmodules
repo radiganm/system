@@ -7,3 +7,6 @@
 [submodule "tecla"]
 	path = submodules/tecla
 	url = https://github.com/radiganm/tecla.git
+[submodule "submodules/bdwgc"]
+	path = submodules/bdwgc
+	url = https://github.com/radiganm/bdwgc.git
