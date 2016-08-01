@@ -1,5 +1,6 @@
 // Hdf5Tree.hpp
-// Mac Radigan
+// Copyright 2016 Mac Radigan
+// All Rights Reserved
 
 #include "../common/namespace.hpp"
 #include <stdlib.h>

@@ -1,8 +1,9 @@
 #!/usr/bin/make
 ## makefile (for system)
-## Mac Radigan
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
 
-.PHONY: clean clobber submodules libraries applications experimental
+.PHONY: clean clobber submodules libraries applications tests experimental
 .DEFAULT_GOAL := all
 
 BLDDIR=./build
@@ -16,6 +17,9 @@ libraries:
 	$(MAKE) -f $(BLDDIR)/$@.mk
 
 applications:
+	$(MAKE) -f $(BLDDIR)/$@.mk
+
+tests:
 	$(MAKE) -f $(BLDDIR)/$@.mk
 
 experimental: submodules libraries applications

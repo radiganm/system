@@ -1,6 +1,8 @@
 #!/bin/bash
 ## sbclc
-## Mac Radigan
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
+
   d=${0%/*}; f=${0##*/}; b=${f%.*}; e=${f##*.}
 
   S__SUCCESS=0
@@ -40,24 +42,31 @@ EOT
     esac
   done
 
+  p_unixoptions=`readlink -f ./submodules/system/unix-options`
 # p_swank=`readlink -f ./submodules/system/swank-client`
 # p_bordeaux=`readlink -f ./submodules/system/bordeaux-threads`
 # p_alexandria=`readlink -f ./submodules/system/alexandria`
 # p_base=`readlink -f ./submodules/system/base`
+# (setf asdf:*central-registry*
+#   (list* '*default-pathname-defaults*
+#    #p"${p_swank}/"
+#    #p"${p_bordeaux}/"
+#    #p"${p_alexandria}/"
+#    #p"${p_base}/"
+#    asdf:*central-registry*))
+# (probe-file "swank-client.asd")
+# (probe-file "bordeaux-threads.asd")
+# (probe-file "alexandria.asd")
+# (probe-file "base.asd")
+# (require 'asdf)
 
   sbcl --no-inform --no-userinit <<-EOT 
-  (require 'asdf)
-; (setf asdf:*central-registry*
-;   (list* '*default-pathname-defaults*
-;    #p"${p_swank}/"
-;    #p"${p_bordeaux}/"
-;    #p"${p_alexandria}/"
-;    #p"${p_base}/"
-;    asdf:*central-registry*))
-; (probe-file "swank-client.asd")
-; (probe-file "bordeaux-threads.asd")
-; (probe-file "alexandria.asd")
-; (probe-file "base.asd")
+  (setf asdf:*central-registry*
+    (list* '*default-pathname-defaults*
+     #p"${p_unixoptions}/"
+     asdf:*central-registry*))
+  (probe-file "unix-options.asd")
+  (setf sb-impl::*default-external-format* :UTF-8)
   (load "${src}")
   (sb-ext:save-lisp-and-die "${tgt}" :toplevel #'main :executable t)
 EOT

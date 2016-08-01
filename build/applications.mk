@@ -1,6 +1,7 @@
 #!/usr/bin/make
 ## makefile (for system applications)
-## Mac Radigan
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
 
 .PHONY: clean clobber
 .DEFAULT_GOAL := all

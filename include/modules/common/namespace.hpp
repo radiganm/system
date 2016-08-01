@@ -1,5 +1,6 @@
 // namespace.hpp
-// Mac Radigan
+// Copyright 2016 Mac Radigan
+// All Rights Reserved
 
 #ifndef namespace_hpp
 #define namespace_hpp

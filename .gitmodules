@@ -10,3 +10,9 @@
 [submodule "submodules/bdwgc"]
 	path = submodules/bdwgc
 	url = https://github.com/radiganm/bdwgc.git
+[submodule "submodules/system/unix-options"]
+	path = submodules/system/unix-options
+	url = https://github.com/astine/unix-options.git
+[submodule "submodules/dispmodule"]
+	path = submodules/dispmodule
+	url = https://github.com/radiganm/dispmodule.git

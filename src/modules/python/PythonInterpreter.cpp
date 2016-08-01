@@ -1,5 +1,6 @@
 // PythonInterpreter.cpp
-// Mac Radigan
+// Copyright 2016 Mac Radigan
+// All Rights Reserved
 
 #include "modules/python/PythonInterpreter.hpp"
 #include "modules/common/namespace.hpp"

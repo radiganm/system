@@ -1,6 +1,7 @@
 #!/usr/bin/make
 ## makefile (for libsystem)
-## Mac Radigan
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
 
 .PHONY: clean clobber init
 .DEFAULT_GOAL := all
@@ -10,18 +11,23 @@ all: build
 VPATH = ./src:./src/modules
 
 CCC = g++
+FC = gfortran
 
 BINDIR    = ./bin
 SRCDIR    = ./src
 LIBDIR    = ./lib
 TESTDIR   = ./tests
 SCRIPTDIR = ./scripts
+FMODDIR   = ./mod
 MODDIR    = ./$(SRCDIR)/modules
 APPDIR    = ./$(SRCDIR)/apps
 TESTSDIR  = ./$(SRCDIR)/tests
 SUBDIR    = ./submodules
 
 TARGET = system
+
+LIBS = \
+  $(LIBDIR)/lib$(TARGET).a
 
 ARCH = -m64
 ININC = \
@@ -40,19 +46,26 @@ EXINC = \
 INC = -I./include
 CFLAGS = -fPIC -O2 $(ARCH) -g3 $(INC) $(ININC) $(EXINC)
 C11FLAGS = -fPIC -O2 $(ARCH) -g3 -std=c++11 $(INC) $(ININC) $(EXINC)
+FEXINC = \
+  -J$(SUBDIR)/dispmodule/mod
+FFLAGS = -fPIC -O2 $(ARCH) -g3 $(INC) $(ININC) $(EXINC)
 LIBPATH = \
   -L/lib/x86_64-linux-gnu \
   -L/usr/lib/x86_64-linux-gnu \
   -L$(SUBDIR)/tecla \
   -L$(SUBDIR)/s7 \
   -L$(SUBDIR)/chibi-scheme \
+  -L$(SUBDIR)/dispmodule/lib \
   -L/usr/lib/x86_64-linux-gnu/root5.34
 EXLIBS = \
   -lm \
   -ldl \
   -lcurses \
   -lreadline \
-  -ltcl
+  -ltcl \
+  -llapack \
+  -lblas \
+  -ldispmodule
 # -loctave 
 INLIBS = \
   -l:libtecla.a \
@@ -67,9 +80,13 @@ init:
 	@-mkdir -p $(BINDIR)
 	@-mkdir -p $(LIBDIR)
 	@-mkdir -p $(TESTDIR)
+	@-mkdir -p $(FMODDIR)
 	@-(cd $(BINDIR); ln -fs ../$(SCRIPTDIR)/system .)
 
-%.o: %.cpp
+%.oC11: %.cpp
 	$(CCC) $(C11FLAGS) -c -o $@ $^
+
+%.oF90: %.f90
+	$(FC) -J$(FMODDIR) $(FFLAGS) -c -o $@ $^
 
 ## *EOF*

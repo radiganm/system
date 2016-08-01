@@ -1,27 +1,45 @@
 #!/usr/bin/make
 ## makefile (for system tests)
-## Mac Radigan
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
 
-.PHONY: clean clobber init submodules
+.PHONY: clean clobber
 .DEFAULT_GOAL := all
 
 include ./build/rules.mk
 
 all: build
 
-TESTSRC = \
+TESTCSRC = \
   $(TESTSDIR)/test-file.cpp
-TESTS = $(patsubst $(TESTSDIR)/%,$(TESTDIR)/%, $(TESTSRC:.cpp=))
+CTESTS = $(patsubst $(TESTSDIR)/%,$(TESTDIR)/%, $(TESTCSRC:.cpp=))
 
-build: $(TESTS)
+TESTFSRC = \
+  $(TESTSDIR)/test-la.f90 \
+  $(TESTSDIR)/test-fact.f90 \
+  $(TESTSDIR)/test_dispmodule.f90
+FTESTS = $(patsubst $(TESTSDIR)/%,$(TESTDIR)/%, $(TESTFSRC:.f90=))
+
+build: $(CTESTS) $(FTESTS)
 
 $(TESTDIR)/test-file: $(TESTSDIR)/test-file.cpp
 	$(CCC) $(C11FLAGS) -o $@ $^ $(LDFLAGS)
 
+$(TESTDIR)/test-la: $(TESTSDIR)/test-la.f90
+	$(FC) $(FEXINC) $(FFLAGS) -o $@ $^ $(LDFLAGS)
+
+$(TESTDIR)/test-fact: $(TESTSDIR)/test-fact.f90
+	$(FC) $(FEXINC) $(FFLAGS) -o $@ $^ $(LDFLAGS)
+
+$(TESTDIR)/test_dispmodule: $(TESTSDIR)/test_dispmodule.f90
+	$(FC) $(FEXINC) $(FFLAGS) -o $@ $^ $(LDFLAGS)
+
 clean:
-	-rm -f $(C11OBJ)
+	-rm -f $(CTESTS)
+	-rm -f $(FTESTS)
 
 clobber: clean
-	-rm -f $(TESTS)
+	-rm -f $(CTESTS)
+	-rm -f $(FTESTS)
 
 ## *EOF*

@@ -1,9 +1,11 @@
 ;; swank
-;; Mac Radigan
+;; Copyright 2016 Mac Radigan
+;; All Rights Reserved
 
 ; (require 'asdf)
 ; (asdf:operate 'asdf:load-op 'swank-client)
   (ql:quickload :swank-client)
+  (require "OPTPARSER" "./thirdparty/lisp_optparser/optparser.cl")
 
   (defun swank-client () 
     (defvar *myswank* (swank-client:slime-connect "127.0.0.1" 4005))

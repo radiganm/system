@@ -8,6 +8,9 @@
 
   (cd ./build; curl -O https://beta.quicklisp.org/quicklisp.lisp)
   (cd ./build; sbcl --load quicklisp.lisp --eval "(quicklisp-quickstart:install)" --eval "(quit)")
+  (cd ./build; sbcl --load quicklisp.lisp --eval "(ql:quickload :swank-client)" --eval "(quit)")
+# (cd ./build; sbcl --load quicklisp.lisp --eval "(ql:quickload :unix-opts)" --eval "(quit)")
+  (cd ./build; sbcl --load quicklisp.lisp --eval "(ql:quickload :unix-options)" --eval "(quit)")
 
   exit $S__SUCCESS
 

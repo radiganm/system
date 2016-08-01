@@ -1,14 +1,19 @@
 ;; clisp
-;; Mac Radigan
+;; Copyright 2016 Mac Radigan
+;; All Rights Reserved
 
-; (require 'asdf)
-; (asdf:operate 'asdf:load-op 'swank-client)
-  (ql:quickload :swank-client)
+  (asdf:load-system :swank-client)
+  (asdf:oos 'asdf:load-op 'unix-options)
+  (use-package 'unix-options)
   (use-package :sb-thread)
 
-  (defun swank-server () 
+  (defun cd (path) (sb-posix:chdir path))
+  (defun pwd () (sb-posix:getcwd))
+  (defun exec (cmd args) (sb-ext:run-program cmd args :output t))
+
+  (defun swank-server (port) 
     (swank-loader:init)
-    (swank:create-server :port 4005 :dont-close t)
+    (swank:create-server :port port :dont-close t)
   )
 
   (defun repl () 
@@ -21,8 +26,8 @@
   )
 
   (defun main () 
-    (make-thread 'swank-server)
+    (make-thread 'swank-server :arguments '4005)
     (repl)
   )
-
+  
 ;; *EOF*

@@ -2,7 +2,7 @@
  * Mac Radigan
  */
 
-#include "modules/io/file.h"
+#include "./modules/io/file.h"
 #include <stdio.h>
 #include <cstdlib>
 
