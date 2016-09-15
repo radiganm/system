@@ -22,7 +22,11 @@ CLAPPS = \
   $(APPDIR)/swank.cl
 CLBINS = $(patsubst $(APPDIR)/%,$(BINDIR)/%, $(CLAPPS:.cl=))
 
-build: $(BINS) $(CLBINS)
+CYAPPS = \
+  $(APPDIR)/python.pyx
+CYBINS = $(patsubst $(APPDIR)/%,$(BINDIR)/%, $(CYAPPS:.pyx=))
+
+build: $(BINS) $(CLBINS) $(CYBINS)
 
 $(BINDIR)/chibi: $(APPDIR)/chibi.cpp
 	$(CCC) $(C11FLAGS) -o $@ $^ $(LDFLAGS)
@@ -41,6 +45,11 @@ $(BINDIR)/lisp: $(APPDIR)/lisp.cl
 
 $(BINDIR)/swank: $(APPDIR)/swank.cl
 	./build/sbclc -o $@ -c $^
+
+$(BINDIR)/python: $(APPDIR)/python.pyx
+	$(CYC) --embed -a $^
+	$(CCC) -shared -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing -I/usr/include/python2.7 -o $(^:.pyx=.so) $(^:.pyx=.c)
+	$(CCC) -o $@ $(^:.pyx=.c) -pthread -fPIC -fwrapv -O2 -Wall -fno-strict-aliasing -I/usr/include/python2.7 -L/usr/lib/x86_64-linux-gnu -lpython2.7 
 
 clobber: clean
 	-rm -f $(BINS)

@@ -12,6 +12,7 @@ VPATH = ./src:./src/modules
 
 CCC = g++
 FC = gfortran
+CYC = cython
 
 BINDIR    = ./bin
 SRCDIR    = ./src
