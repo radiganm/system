@@ -5,11 +5,14 @@
 
 .PHONY: submodules clean clobber
 
-submodules:
+submodules: configure
 	$(MAKE) -C tecla
 	$(MAKE) -C s7 libs7.a
 	$(MAKE) -C chibi-scheme libchibi-scheme.a
 	$(MAKE) -C dispmodule
+
+configure: ./tecla/Makefile
+	(cd ./tecla; ./configure)
 
 clean:
 	$(MAKE) -C tecla        $@
