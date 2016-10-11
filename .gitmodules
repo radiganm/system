@@ -16,3 +16,6 @@
 [submodule "submodules/dispmodule"]
 	path = submodules/dispmodule
 	url = https://github.com/radiganm/dispmodule.git
+[submodule "submodules/nanomsg"]
+	path = submodules/nanomsg
+	url = https://github.com/radiganm/nanomsg.git

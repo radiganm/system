@@ -1,5 +1,6 @@
 /* python.cpp
- * Mac Radigan
+ * Copyright 2016 Mac Radigan
+ * All Rights Reserved
  */
 
 #include "modules/common/namespace.hpp"

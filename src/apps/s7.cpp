@@ -1,5 +1,6 @@
 /* s7.cpp
- * Mac Radigan
+ * Copyright 2016 Mac Radigan
+ * All Rights Reserved
  */
 
 #include "modules/io/file.h"

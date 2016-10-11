@@ -1,7 +1,10 @@
 #!/bin/bash
 ## system
 ## Mac Radigan
-  d=${0%/*}; f=${0##*/}; b=${f%.*}; e=${f##*.}
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
+
+  d=${0%/*}; f=${0##*/}; n=${f%.*}; e=${f##*.}
 
   S__SUCCESS=0
   S__NO_SUCH_COMMAND=1
@@ -9,7 +12,7 @@
   usage()
   {
     cat <<-EOT 
-		$f [chibi|s7] [args]
+		$f [chibi|s7|guile|scm|python|tcl|lisp|swank] [args]
 EOT
     exit 1
   }
@@ -29,11 +32,11 @@ EOT
   run()
   {
     cmd=$1; shift
-    LDD=./chibi-scheme
+    LDD=./submodules/chibi-scheme
     LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LDD}
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH 
-    export CHIBI_INCLUDE_PATH=./chibi-scheme/lib
-    export CHIBI_MODULE_PATH=./chibi-scheme/lib
+    export CHIBI_INCLUDE_PATH=./submodules/chibi-scheme/lib
+    export CHIBI_MODULE_PATH=./submodules/chibi-scheme/lib
     $cmd $*
   }
 
@@ -59,6 +62,15 @@ EOT
       ;;
     tcl)
       run $d/tcl $*
+      ;;
+    scm)
+      run $d/scm $*
+      ;;
+    lisp)
+      run $d/lisp $*
+      ;;
+    swank)
+      run $d/swank $*
       ;;
     *)
       die $S__NO_SUCH_COMMAND "invalid command"

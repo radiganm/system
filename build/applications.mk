@@ -14,6 +14,7 @@ APPS = \
   $(APPDIR)/chibi.cpp \
   $(APPDIR)/s7.cpp \
   $(APPDIR)/guile.cpp \
+  $(APPDIR)/scm.cpp \
   $(APPDIR)/tcl.cpp 
 BINS = $(patsubst $(APPDIR)/%,$(BINDIR)/%, $(APPS:.cpp=))
 
@@ -29,6 +30,9 @@ CYBINS = $(patsubst $(APPDIR)/%,$(BINDIR)/%, $(CYAPPS:.pyx=))
 build: $(BINS) $(CLBINS) $(CYBINS)
 
 $(BINDIR)/chibi: $(APPDIR)/chibi.cpp
+	$(CCC) $(C11FLAGS) -o $@ $^ $(LDFLAGS)
+
+$(BINDIR)/scm: $(APPDIR)/scm.cpp
 	$(CCC) $(C11FLAGS) -o $@ $^ $(LDFLAGS)
 
 $(BINDIR)/s7: $(APPDIR)/s7.cpp

@@ -42,14 +42,10 @@ EXINC = \
   -I/usr/include/root \
   $(shell pkg-config --cflags guile-2.0) \
   $(shell /usr/bin/python2.7-config --cflags)
-# -I/usr/include/octave-4.0.0 
-# -I/usr/include/octave-4.0.0/octave 
 INC = -I./include
 CFLAGS = -fPIC -O2 $(ARCH) -g3 $(INC) $(ININC) $(EXINC)
 C11FLAGS = -fPIC -O2 $(ARCH) -g3 -std=c++11 $(INC) $(ININC) $(EXINC)
-FEXINC = \
-  -J$(SUBDIR)/dispmodule/mod
-FFLAGS = -fPIC -O2 $(ARCH) -g3 $(INC) $(ININC) $(EXINC)
+FFLAGS = -J$(FMODDIR) -cpp -fPIC -O2 $(ARCH) -g3 $(INC) $(ININC)
 LIBPATH = \
   -L/lib/x86_64-linux-gnu \
   -L/usr/lib/x86_64-linux-gnu \
@@ -67,14 +63,14 @@ EXLIBS = \
   -llapack \
   -lblas \
   -ldispmodule
-# -loctave 
 INLIBS = \
   -l:libtecla.a \
   -l:libs7.a \
-  -lchibi-scheme \
+  -l:libchibi-scheme.a \
   $(shell pkg-config --libs guile-2.0) \
   -lCore \
   $(shell /usr/bin/python2.7-config --ldflags)
+# -lchibi-scheme
 LDFLAGS = -O2 $(ARCH) -g $(LIBPATH) $(INLIBS) $(EXLIBS) $(LIBS)
 
 init:
@@ -88,6 +84,6 @@ init:
 	$(CCC) $(C11FLAGS) -c -o $@ $^
 
 %.oF90: %.f90
-	$(FC) -J$(FMODDIR) $(FFLAGS) -c -o $@ $^
+	$(FC) $(FFLAGS) -c -o $@ $^
 
 ## *EOF*

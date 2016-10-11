@@ -1,5 +1,6 @@
 ## python.pyx
-## Mac Radigan
+## Copyright 2016 Mac Radigan
+## All Rights Reserved
 
 from IPython.terminal.ipapp import TerminalIPythonApp
 from IPython.config.configurable import Configurable

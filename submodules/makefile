@@ -5,19 +5,25 @@
 
 .PHONY: submodules clean clobber
 
-submodules: configure
+submodules: 
 	$(MAKE) -C tecla
 	$(MAKE) -C s7 libs7.a
 	$(MAKE) -C chibi-scheme libchibi-scheme.a
 	$(MAKE) -C dispmodule
+	$(MAKE) -C nanomsg
 
-configure: ./tecla/Makefile
+configure: ./tecla/Makefile ./nanomsg/Makefile
 	(cd ./tecla; ./configure)
+	(cd ./nanomsg; ./configure)
+
+post-install:
+	(cd ../mod; ln -fs ../submodules/dispmodule/mod/*.mod .)
 
 clean:
 	$(MAKE) -C tecla        $@
 	$(MAKE) -C s7           $@
 	$(MAKE) -C chibi-scheme $@
+	$(MAKE) -C nanomsg $@
 
 clobber: clean
 

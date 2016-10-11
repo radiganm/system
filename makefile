@@ -8,7 +8,7 @@
 
 BLDDIR=./build
 
-all: submodules libraries applications
+all: submodules libraries applications tests
 
 submodules:
 	$(MAKE) -C $@

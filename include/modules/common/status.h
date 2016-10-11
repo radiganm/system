@@ -15,6 +15,8 @@
     FAILURE = 1
   };
 
+  inline void ck(const char* const msg, int status, int value);
+
 #ifdef __cplusplus
 extern "C" {
 #endif

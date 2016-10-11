@@ -1,5 +1,6 @@
 /* chibi.cpp
- * Mac Radigan
+ * Copyright 2016 Mac Radigan
+ * All Rights Reserved
  */
 
 #define SEXP_USE_PRINT_BACKTRACE_ON_SEGFAULT (1)
@@ -35,7 +36,9 @@
     sexp_gc_var1(s_filename);
     sexp_gc_preserve1(ctx, s_filename);
     s_filename = sexp_c_string(ctx, filename, -1);
+    //fprintf(stdout, "load %s\n", filename);
     sexp_load(ctx, s_filename, NULL);
+    fflush(stdout);
     sexp_gc_release1(s_filename);
   }
 
@@ -129,7 +132,6 @@
     if(argc == 2)
     {
       const char * const &filename = argv[1];
-      fprintf(stderr, "load %s\n", filename);
       load(ctx, env, filename);
     }
     else 
