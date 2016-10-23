@@ -14,8 +14,6 @@ build: $(LIBS)
 
 C11SRC = \
   $(MODDIR)/io/file.cpp \
-  $(MODDIR)/dsp/lfsr.cpp \
-  $(MODDIR)/common/ffi.cpp \
   $(MODDIR)/agent/agent.cpp \
   $(MODDIR)/hdf5/Hdf5Tree.cpp \
   $(MODDIR)/python/PythonInterpreter.cpp

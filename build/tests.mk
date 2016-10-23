@@ -17,8 +17,6 @@ CTESTS = $(patsubst $(TESTSDIR)/%,$(TESTDIR)/%, $(TESTCSRC:.cpp=))
 
 TESTFSRC = \
   $(TESTSDIR)/test-la.f90 \
-  $(TESTSDIR)/test-fact.f90 \
-  $(TESTSDIR)/test-lfsr.f90 \
   $(TESTSDIR)/test_dispmodule.f90
 FTESTS = $(patsubst $(TESTSDIR)/%,$(TESTDIR)/%, $(TESTFSRC:.f90=))
 
@@ -34,13 +32,7 @@ $(TESTDIR)/test-driver: $(TESTSDIR)/test-driver.cpp
 $(TESTDIR)/test-file: $(TESTSDIR)/test-file.cpp
 	$(CCC) $(C11FLAGS) -o $@ $^ $(LDFLAGS)
 
-$(TESTDIR)/test-lfsr: $(TESTSDIR)/test-lfsr.f90
-	$(FC) $(FFLAGS) -o $@ $^ $(LDFLAGS)
-
 $(TESTDIR)/test-la: $(TESTSDIR)/test-la.f90
-	$(FC) $(FFLAGS) -o $@ $^ $(LDFLAGS)
-
-$(TESTDIR)/test-fact: $(TESTSDIR)/test-fact.f90
 	$(FC) $(FFLAGS) -o $@ $^ $(LDFLAGS)
 
 $(TESTDIR)/test_dispmodule: $(TESTSDIR)/test_dispmodule.f90

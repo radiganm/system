@@ -13,7 +13,11 @@ submodules:
 	$(MAKE) -C nanomsg
 
 configure: ./tecla/Makefile ./nanomsg/Makefile
+
+./tecla/Makefile:
 	(cd ./tecla; ./configure)
+
+./nanomsg/Makefile:
 	(cd ./nanomsg; ./configure)
 
 post-install:
