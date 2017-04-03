@@ -33,6 +33,7 @@ LIBS = \
 ARCH = -m64
 ININC = \
   -I$(SUBDIR)/tecla \
+  -I$(SUBDIR)/ecl/build \
   -I$(SUBDIR)/s7 \
   -I$(SUBDIR)/chibi-scheme/include
 EXINC = \
@@ -50,6 +51,7 @@ LIBPATH = \
   -L/lib/x86_64-linux-gnu \
   -L/usr/lib/x86_64-linux-gnu \
   -L$(SUBDIR)/tecla \
+  -L$(SUBDIR)/ecl/build \
   -L$(SUBDIR)/s7 \
   -L$(SUBDIR)/chibi-scheme \
   -L$(SUBDIR)/dispmodule/lib \
@@ -57,16 +59,19 @@ LIBPATH = \
 EXLIBS = \
   -lm \
   -ldl \
+  -lgmp \
+  -latomic \
   -lcurses \
   -lreadline \
   -ltcl \
   -llapack \
-  -lblas \
-  -ldispmodule
+  -lblas 
 INLIBS = \
+  -lecl \
   -l:libtecla.a \
   -l:libs7.a \
   -l:libchibi-scheme.a \
+  -l:libdispmodule.a \
   $(shell pkg-config --libs guile-2.0) \
   -lCore \
   $(shell /usr/bin/python2.7-config --ldflags)

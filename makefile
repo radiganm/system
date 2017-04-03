@@ -37,4 +37,7 @@ clobber:
 	$(MAKE) -f $(BLDDIR)/applications.mk $@
 	$(MAKE) -f $(BLDDIR)/experimental.mk $@
 
+link-modules:
+	(cd ./mod; find ../submodules -name "*.mod" | xargs -I {} ln -fs {} .)
+
 ## *EOF*
